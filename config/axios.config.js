@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_SITE_URL + "/api"; // Change this if using a diffe // Change this if using a different backend API
+// Use relative path in browser to avoid CORS (requests go to origin)
+// Use full URL on server where relative paths don't exist
+const baseURL = typeof window !== 'undefined' 
+  ? '/api' 
+  : (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000') + '/api';
 
 export const api = axios.create({
   baseURL,
